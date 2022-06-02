@@ -1,8 +1,8 @@
-/*
-SQLyog Community v13.1.9 (64 bit)
-MySQL - 10.2.6-MariaDB-log : Database - customer
+`users_authentication`/*
+SQLyog Ultimate v10.00 Beta1
+MySQL - 5.5.5-10.5.15-MariaDB-cll-lve : Database - customer
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -21,27 +21,35 @@ USE `customer`;
 DROP TABLE IF EXISTS `customers`;
 
 CREATE TABLE `customers` (
-  `salesID` varchar(225) DEFAULT NULL,
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `firstName` varchar(225) DEFAULT NULL,
-  `lastName` varchar(225) DEFAULT NULL,
-  `address` varchar(225) DEFAULT NULL,
-  `postal` bigint(20) DEFAULT NULL,
-  `country` varchar(225) DEFAULT NULL,
-  `creationDate` datetime NOT NULL DEFAULT current_timestamp(),
-  `accountType` varchar(225) DEFAULT NULL,
-  `miles` bigint(20) DEFAULT NULL,
+  `salesID` VARCHAR(225) DEFAULT NULL,
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `firstName` VARCHAR(225) DEFAULT NULL,
+  `lastName` VARCHAR(225) DEFAULT NULL,
+  `address` VARCHAR(225) DEFAULT NULL,
+  `postal` BIGINT(20) DEFAULT NULL,
+  `country` VARCHAR(225) DEFAULT NULL,
+  `creationDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `accountType` VARCHAR(225) DEFAULT NULL,
+  `miles` BIGINT(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=INNODB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-/*Data for the table `customers` */
+/*Table structure for table `users_authentication` */
 
-insert  into `customers`(`salesID`,`id`,`firstName`,`lastName`,`address`,`postal`,`country`,`creationDate`,`accountType`,`miles`) values 
-('kenneth vargas2022-06-02 07:39:59',4,'kenneth two','vargas two','valenzuela',1234,'ph','2022-06-02 08:11:01',NULL,NULL),
-('5kenneth vargas2022-06-02 08:11:01',5,'kenneth three','vargas three','valenzuela',1234,'ph','2022-06-02 08:11:01',NULL,NULL),
-('6naruto vargas2022-06-02 08:11:19',6,'naruto','vargas','valenzuela',1234,'ph','2022-06-02 08:11:19',NULL,NULL),
-('7 2022-06-02 08:43:33',7,NULL,NULL,NULL,NULL,NULL,'2022-06-02 08:43:33',NULL,NULL);
+DROP TABLE IF EXISTS `users_authentication`;
 
+CREATE TABLE `users_authentication` (
+  `id` INT(11) NOT NULL,
+  `users_id` INT(11) NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `expired_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+/*Data for the table `users_authentication` */
+
+insert  into `users_authentication`(`id`,`users_id`,`token`,`expired_at`,`created_at`,`updated_at`) values (1,1,'$1$6fjNSBRR$7lx.mxo/q1LbNO7f5.7w8.','2034-06-13 23:28:00','2015-12-27 11:28:00','2015-12-27 11:28:00');
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
