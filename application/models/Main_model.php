@@ -76,6 +76,22 @@ class Main_model extends CI_Model {
             }
         }
     }
+    // needed for put
+    public function customer_id_checker(){
 
+        $this->db->select("AUTO_INCREMENT");
+		$this->db->from("information_schema.TABLES");
+		$this->db->where("TABLE_SCHEMA", 'customer');
+		$this->db->where("TABLE_NAME", 'customers');
+		
+		$query = $this->db->get();
+		$result = $query->result();
+
+		return $result;
+	}
+    // needed for put
+    public function customer_post($input) {
+        return $this->db->insert('customers', $input);
+    }
 
 }

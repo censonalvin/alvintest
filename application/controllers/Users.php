@@ -22,13 +22,13 @@ class Users extends RestController {
 	public function index_get()
 	{
         $params = $_REQUEST;
-        if(isset($params['name'])){
-            $lastname = $params['name'];
-            $data = $this->db->get_where("customers", ['lastname' => $lastname])->row_array();
+        if(isset($params['id'])){
+            $id = $params['id'];
+            $data = $this->db->get_where("customers", ['id' => $id])->row_array();
             if(!empty($data)){
                 $this->response($data, RestController::HTTP_OK);
             }else{
-                $this->response(["Missing required parameter name"], RestController::HTTP_BAD_REQUEST);
+                $this->response(["Missing required parameter ID"], RestController::HTTP_BAD_REQUEST);
             }
         }else{
             $data = $this->db->get("customers")->result();
@@ -43,12 +43,28 @@ class Users extends RestController {
     */
     public function index_post()
     {
-        $input = $this->input->post();
-        $this->db->insert('customers',$input);  
-        $this->response([
-            "Message" => "HTTP 202 Accepted",
-            "Result" => 202
-        ], RestController::HTTP_CREATED);
+         $customers = $this->Main_model->customer_id_checker();
+         foreach ($customers as $customer) {
+            // var_dump(array_shift($customer));
+             $id = $customer->AUTO_INCREMENT;
+             $firstName = $this->input->post('firstName',true);
+             $lastName = $this->input->post('lastName',true);
+             $date = new DateTime("now", new DateTimeZone('Hongkong') );
+             $salesID = $id."".$firstName." ".$lastName."". $date->format('Y-m-d H:i:s');
+
+             $input = $this->input->post();
+             $input ['salesID'] = $salesID;
+
+             $this->Main_model->customer_post($input);
+             if($input > 0) {
+                $this->response(["Customer Added Succesfully."], RestController::HTTP_OK);
+             }
+             else {
+                $this->response(['status' => false, 'message' => 'FAILED TO CREATE CUSTOMER'], RestController::HTTP_BAD_REQUEST);
+             }
+         }
+        //  var_dump($customers);
+
     } 
      
     /**
