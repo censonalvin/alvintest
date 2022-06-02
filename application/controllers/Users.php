@@ -12,13 +12,6 @@ class Users extends RestController {
        parent::__construct();
        $this->load->database();
     }
-       
-    /**
-     * Get All Data from this method.
-     * 
-     * @param name
-     * @return Response
-    */
 	public function index_get()
 	{
         $params = $_REQUEST;
@@ -35,12 +28,6 @@ class Users extends RestController {
             $this->response($data, RestController::HTTP_OK);
         }
 	}
-      
-    /**
-     * Add New Data from this method.
-     *
-     * @return Response
-    */
     public function index_post()
     {
          $customers = $this->Main_model->customer_id_checker();
@@ -66,12 +53,6 @@ class Users extends RestController {
         //  var_dump($customers);
 
     } 
-     
-    /**
-     * Update Data from this method.
-     *
-     * @return Response
-    */
     public function index_put()
     {
         $params = $_REQUEST;
@@ -84,12 +65,6 @@ class Users extends RestController {
             $this->response(["Missing required parameter id"], RestController::HTTP_BAD_REQUEST);
         }
     }
-     
-    /**
-     * Delete Data from this method.
-     *
-     * @return Response
-    */
     public function index_delete()
     {
         $params = $_REQUEST;
